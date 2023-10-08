@@ -1,17 +1,17 @@
 pipeline {
     environment {
-       AWS_ACCOUNT_ID = '752140524248'
-       AWS_DEFAULT_REGION = 'ap-southeast-2'
-       IMAGE_REPO_NAME = 'myapp'
+       AWS_ACCOUNT_ID = '452467674460'
+       AWS_DEFAULT_REGION = 'eu-north-1'
+       IMAGE_REPO_NAME = 'test'
        REPOSITORY = '${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}'
-       dockerhost = '10.1.1.254'
+       dockerhost = '172.31.47.209'
            }
        
     agent any 
     stages {
         stage('Cloning out Git repo') { 
             steps {
-                git credentialsId: 'vinaykumar331', url: 'https://github.com/vinaykumar331/dockertest1.git'
+                git credentialsId: 'github-id', url: 'https://github.com/bhoinasavitri4/Sai_Test.git'
             }
         }
         stage('Buildig our Image') { 
@@ -30,7 +30,7 @@ pipeline {
             }
          stage('Deploy cointainer') { 
             steps {
-                sh "docker run --rm -dit --name mycon4 -p 8400:80 $REPOSITORY:v$BUILD_NUMBER"
+                sh "docker run --rm -dit --name web3 -p 9003:80 $REPOSITORY:v$BUILD_NUMBER"
             }
         }
    }       
