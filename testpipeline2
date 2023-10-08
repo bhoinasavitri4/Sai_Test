@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Cloning out Git repo') { 
             steps {
-                git credentialsId: 'git id', url: 'https://github.com/bhoinasavitri4/Sai_Test.git'
+                git credentialsId: 'github-id', url: 'https://github.com/bhoinasavitri4/Sai_Test.git'
             }
         }
         stage('Buildig our Image') { 
