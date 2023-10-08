@@ -27,7 +27,7 @@ pipeline {
             }
          stage('Deploy cointainer') { 
             steps {
-                sh "docker run --rm -dit --name web1 -p 9000:80 $registry:v$BUILD_NUMBER"
+                sh "docker run --rm -dit --name web2 -p 9001:80 $registry:v$BUILD_NUMBER"
             }
         }
         
