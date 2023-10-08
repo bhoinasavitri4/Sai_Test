@@ -1,14 +1,14 @@
 pipeline {
     environment {
        registry = 'bhoinasavitri4/test'
-       dockerhost = '172.31.34.150'
+       dockerhost = '172.31.47.209'
            }
        
     agent any 
     stages {
         stage('Cloning out Git repo') { 
             steps {
-                git credentialsId: 'github_id', url: 'https://github.com/bhoinasavitri4/Sai_Test.git'
+                git credentialsId: 'git id', url: 'https://github.com/bhoinasavitri4/Sai_Test.git'
             }
         }
         stage('Buildig our Image') { 
@@ -19,7 +19,7 @@ pipeline {
         stage('Push Image to DockerHub & clean up locally') { 
             steps {
                 withCredentials([string(credentialsId: 'dockerhub_id', variable: 'DOCKERHUB_CREDENTIALS')]) {
-                sh "docker login -u bhoinasavitri4 -p ${DockerHub_Credentials}"
+                sh "docker login -u bhoinasavitri4 -p ${DOCKERHUB_CREDENTIALS}"
                 sh "docker push $registry:v$BUILD_NUMBER"
                 sh "docker rmi $registry:v$BUILD_NUMBER"
                  } 
@@ -27,7 +27,7 @@ pipeline {
             }
          stage('Deploy cointainer') { 
             steps {
-                sh "docker run --rm -dit --name mycon3 -p 9000:80 $registry:v$BUILD_NUMBER"
+                sh "docker run --rm -dit --name web1 -p 9000:80 $registry:v$BUILD_NUMBER"
             }
         }
         
